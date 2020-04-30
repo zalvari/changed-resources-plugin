@@ -1,4 +1,4 @@
-import eu.zalvari.maven.partial.resources.mocks.ITHelper
+import eu.zalvari.maven.changed.resources.mocks.ITHelper
 
 def testProjectBasedir = basedir as File
 def pbpBaseDir = sourceDir as String

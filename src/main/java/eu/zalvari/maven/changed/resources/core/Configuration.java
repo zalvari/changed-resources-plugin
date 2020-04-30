@@ -35,15 +35,19 @@ public class Configuration {
     public final boolean writeChanged;
     public final boolean useNativeGit;
     public final String rootDirectory;
+    public final Optional<Path> resourcesDir;
+    public final String excludeDirs;
+    public final String excludeFiles;
+    
 
     @Inject
     public Configuration(MavenSession session) throws IOException {
 
         try {
-            Plugin plugin = session.getTopLevelProject().getPlugin(PLUGIN_KEY);
+            Plugin plugin = session.getCurrentProject().getPlugin(PLUGIN_KEY);
             // check properties
             checkPluginConfiguration(plugin);
-            checkProperties(session.getTopLevelProject().getProperties());
+            checkProperties(session.getCurrentProject().getProperties());
             checkProperties(System.getProperties());
             checkProperties(session.getUserProperties());
             // parse into configuration
@@ -56,11 +60,14 @@ public class Configuration {
             compareToMergeBase = Boolean.valueOf(Property.compareToMergeBase.getValue());
             fetchReferenceBranch = Boolean.valueOf(Property.fetchReferenceBranch.getValue());
             fetchBaseBranch = Boolean.valueOf(Property.fetchBaseBranch.getValue());
-            outputFile = parseOutputFile(session, Property.outputFile.getValue());
-            outputDir = parseOutputFile(session, Property.outputDir.getValue());
+            outputFile = parseFilePath(session, Property.outputFile.getValue());
+            outputDir = parseFilePath(session, Property.outputDir.getValue());
             writeChanged = Boolean.valueOf(Property.writeChanged.getValue());
             useNativeGit = Boolean.valueOf(Property.useNativeGit.getValue());
             rootDirectory = session.getExecutionRootDirectory();
+            resourcesDir = parseFilePath(session, Property.resourcesDir.getValue());
+            excludeDirs = Property.excludeDirs.getValue();
+            excludeFiles =  Property.excludeFiles.getValue();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -68,20 +75,21 @@ public class Configuration {
     }
 
     private Path parseKey(MavenSession session, String keyOptionValue) throws IOException {
-        Path pomDir = session.getTopLevelProject().getBasedir().toPath();
+        Path pomDir = session.getCurrentProject().getBasedir().toPath();
         if (keyOptionValue != null && !keyOptionValue.isEmpty()) {
             return pomDir.resolve(keyOptionValue).toAbsolutePath().toRealPath().normalize();
         }
         return null;
     }
 
-    private Optional<Path> parseOutputFile(MavenSession session, String outputFileValue) throws IOException {
-        Path pomDir = session.getTopLevelProject().getBasedir().toPath();
+    private Optional<Path> parseFilePath(MavenSession session, String outputFileValue) throws IOException {
+        Path pomDir = session.getCurrentProject().getBasedir().toPath();
         if (outputFileValue != null && !outputFileValue.isEmpty()) {
             return Optional.of(pomDir.resolve(outputFileValue).toAbsolutePath().normalize());
         }
         return Optional.empty();
     }
+    
 
     private void checkPluginConfiguration(Plugin plugin) {
         if (null != plugin) {
@@ -119,6 +127,9 @@ public class Configuration {
                         .append("outputDir", outputDir)
                         .append("writeChanged", writeChanged)
                         .append("useNativeGit", useNativeGit)
+                        .append("resourcesDir", resourcesDir)
+                        .append("excludeDirs", excludeDirs)
+                        .append("excludeFiles", excludeFiles)
                         .toString();
     }
 }

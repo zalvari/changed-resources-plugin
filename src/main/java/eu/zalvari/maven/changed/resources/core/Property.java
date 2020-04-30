@@ -4,7 +4,7 @@ public enum Property {
 
     enabled("true"),
     repositorySshKey(""),
-    referenceBranch("refs/remotes/origin/develop"),
+    referenceBranch("refs/remotes/origin/development"),
     baseBranch("HEAD"),
     uncommited("true"),
     untracked("false"),
@@ -12,9 +12,12 @@ public enum Property {
     fetchBaseBranch("false"),
     fetchReferenceBranch("false"),
     outputFile("changed.resources"),
-    outputDir("${project.build.dir}/changedResources/"),
+    outputDir("/changedResources/"),
     writeChanged("true"),
-    useNativeGit("false");
+    useNativeGit("false"),
+    resourcesDir("src/main/resources"),
+    excludeDirs(""),
+    excludeFiles("");
 
     public static final String PREFIX = "changedResources.";
 

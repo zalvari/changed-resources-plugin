@@ -1,8 +1,6 @@
 package eu.zalvari.maven.changed.resources.mojos;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.StringJoiner;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
@@ -22,9 +20,8 @@ import eu.zalvari.maven.changed.resources.core.Configuration;
 import eu.zalvari.maven.changed.resources.core.GuiceModule;
 import eu.zalvari.maven.changed.resources.core.Property;
 import eu.zalvari.maven.changed.resources.utils.MavenToPlexusLogAdapter;
-import eu.zalvari.maven.changed.resources.utils.PluginUtils;
 
-@Mojo(name = "copyChangedResources", defaultPhase = LifecyclePhase.PROCESS_RESOURCES, threadSafe = true, inheritByDefault = false, aggregator = true)
+@Mojo(name = "copy", defaultPhase = LifecyclePhase.PROCESS_RESOURCES )
 public class CopyChangedResources extends AbstractMojo {
 	@Parameter(defaultValue = "${project}")
 	private MavenProject project;
@@ -59,6 +56,15 @@ public class CopyChangedResources extends AbstractMojo {
 	@Parameter(required = false, property = Property.PREFIX + "outputFile", defaultValue = "${project.basedir}/changed.resources")
 	public String outputFile;
 	
+	@Parameter(required = false, property = Property.PREFIX + "resourcesDir", defaultValue = "")
+	public String resourceDir;
+	
+	@Parameter(required = false, property = Property.PREFIX + "excludeDirs", defaultValue = "")
+	public String excludeDirs;
+	
+	@Parameter(required = false, property = Property.PREFIX + "excludeFiles", defaultValue = "")
+	public String excludeFiles;
+
 	@Parameter(required = false, property = Property.PREFIX + "outputFile", defaultValue = "${project.basedir}/changedResources/")
 	public String outputDir;
 
@@ -67,8 +73,8 @@ public class CopyChangedResources extends AbstractMojo {
 
 	@Parameter(required = false, property = Property.PREFIX + "useNativeGit", defaultValue = "false")
 	public boolean useNativeGit;
-
-	@Override
+	
+	@Override	
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Injector injector = Guice.createInjector(new GuiceModule(new MavenToPlexusLogAdapter(getLog()), session));
 		Configuration configuration = injector.getInstance(Configuration.class);
