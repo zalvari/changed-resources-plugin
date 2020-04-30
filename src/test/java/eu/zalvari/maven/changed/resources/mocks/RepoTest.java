@@ -14,8 +14,8 @@ import eu.zalvari.maven.changed.resources.core.Property;
 public abstract class RepoTest {
 
     public static final String TEMPLATE_ZIP = "/project.zip";
-    public static final Path TEST_WORK_DIR = Paths.get("d:\\");
-    public static final Path LOCAL_DIR = TEST_WORK_DIR.resolve("tmp").resolve("repo");
+    public static final Path TEST_WORK_DIR = Paths.get(System.getProperty("buildDir"));
+    public static final Path LOCAL_DIR = TEST_WORK_DIR.resolve("tmp").resolve("repotst");
     public static final Path REMOTE_DIR = TEST_WORK_DIR.resolve("tmp").resolve("remote");
 
     protected LocalRepoMock localRepoMock;
@@ -55,7 +55,7 @@ public abstract class RepoTest {
             property.setValue(property.getDefaultValue());
         }
         Property.uncommited.setValue("false");
-        Property.referenceBranch.setValue("refs/heads/develop");
+        Property.referenceBranch.setValue("refs/heads/master");
         Property.compareToMergeBase.setValue("false");
     }
 

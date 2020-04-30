@@ -24,10 +24,11 @@ public class ChangedFilesTest extends RepoTest {
     @Test
     public void list() throws Exception {
         final Set<Path> expected = new HashSet<>(Arrays.asList(
-        		Paths.get(LOCAL_DIR.toString()+"/child2/subchild2/src/resources/file2").toAbsolutePath(),
-        		Paths.get(LOCAL_DIR.toString()+"/child3/src/resources/file1").toAbsolutePath(),
-        		Paths.get(LOCAL_DIR.toString()+"/child4/pom.xml").toAbsolutePath(),
-        		Paths.get(LOCAL_DIR.toString()+"/child2/subchild2/src/resources/file22").toAbsolutePath()
+        		Paths.get(LOCAL_DIR.toString()+"/src/database/data/file3.sql").toAbsolutePath(),
+        		Paths.get(LOCAL_DIR.toString()+"/src/database/proc/file1.sql").toAbsolutePath(),
+        		Paths.get(LOCAL_DIR.toString()+"/src/database/data/file2.sql").toAbsolutePath(),
+        		Paths.get(LOCAL_DIR.toString()+"/src/database/table/file1.sql").toAbsolutePath(),
+        		Paths.get(LOCAL_DIR.toString()+"/src/database/table/file3.sql").toAbsolutePath()
         ));
         final Set<Path> actual = Guice.createInjector(new GuiceModule(new ConsoleLogger(), MavenSessionMock.get()))
                         .getInstance(ChangedFiles.class).get().stream().map(p -> p.toAbsolutePath())

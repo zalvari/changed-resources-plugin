@@ -20,11 +20,11 @@ import eu.zalvari.maven.changed.resources.mocks.RepoTest;
 
 public abstract class DifferentFilesTest extends RepoTest {
 
-    private static final String REFS_HEADS_FEATURE_2 = "refs/heads/feature/2";
+    private static final String REFS_HEADS_FEATURE_2 = "refs/heads/feature1";
     private static final String HEAD = "HEAD";
     private static final String FETCH_FILE = "fetch-file";
-    private static final String DEVELOP = "refs/heads/develop";
-    private static final String REMOTE_DEVELOP = "refs/remotes/origin/develop";
+    private static final String DEVELOP = "refs/heads/master";
+    private static final String REMOTE_DEVELOP = "refs/remotes/origin/master";
 
     @Before
     public void before() throws Exception {
@@ -38,7 +38,7 @@ public abstract class DifferentFilesTest extends RepoTest {
         getLocalRepoMock().getGit().add().addFilepattern(".").call();
         Property.untracked.setValue(Boolean.FALSE.toString());
         Property.uncommited.setValue(Boolean.TRUE.toString());
-        assertTrue(getInstance().get().stream().anyMatch(p -> p.toString().contains("file5")));
+        assertTrue(getInstance().get().stream().anyMatch(p -> p.toString().contains("file4")));
     }
 
     @Test

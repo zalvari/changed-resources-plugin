@@ -85,7 +85,7 @@ public class CopyChangedResources extends AbstractMojo {
 		try {
 			changedResources.act();
 		} catch (GitAPIException | IOException e) {
-			throw new MojoExecutionException("Exception during Partial Build execution: ", e);
+			throw new MojoExecutionException("Exception during Changed Resources Build execution: ", e);
 		}
 	}
 

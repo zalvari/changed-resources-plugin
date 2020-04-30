@@ -48,6 +48,7 @@ public class ChangedResourceFiles {
 					.filter(p -> p.startsWith(resourcesDir))	
 					.filter(f -> Stream.of(configuration.excludeDirs.split(",")).anyMatch(filter -> !f.toString().matches(".*"+filter+".*")))
 					.filter(f -> Stream.of(configuration.excludeFiles.split(",")).anyMatch(filter -> !f.getFileName().toString().matches(filter) ))
+					.filter(f -> Files.exists(f))
 					.collect(Collectors.toSet());
 	}
 	
