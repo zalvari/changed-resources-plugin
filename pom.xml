@@ -197,50 +197,50 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
-      <plugin>
-        <artifactId>maven-invoker-plugin</artifactId>
-        <configuration>
-          <setupIncludes>
-            <setupInclude>build-partial/pom.xml</setupInclude>
-          </setupIncludes>
-          <pomIncludes>
-            <pomInclude>*/pom.xml</pomInclude>
-          </pomIncludes>
-          <skipInvocation>${skipTests}</skipInvocation>
-          <addTestClassPath>true</addTestClassPath>
-          <preBuildHookScript>setup</preBuildHookScript>
-          <postBuildHookScript>verify</postBuildHookScript>
-          <scriptVariables>
-            <sourceDir>${project.basedir}</sourceDir>
-            <projectVersion>${project.version}</projectVersion>
-          </scriptVariables>
-          <projectsDirectory>src/it/projects</projectsDirectory>
-          <cloneProjectsTo>${project.build.directory}/it/projects</cloneProjectsTo>
-          <cloneAllFiles>true</cloneAllFiles>
-          <settingsFile>src/it/settings.xml</settingsFile>
-          <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
-        </configuration>
-        <executions>
-          <execution>
-            <id>integration-test</id>
-            <goals>
-              <goal>install</goal>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.plexus</groupId>
-        <artifactId>plexus-component-metadata</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate-metadata</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+<!--       <plugin> -->
+<!--         <artifactId>maven-invoker-plugin</artifactId> -->
+<!--         <configuration> -->
+<!--           <setupIncludes> -->
+<!--             <setupInclude>build-partial/pom.xml</setupInclude> -->
+<!--           </setupIncludes> -->
+<!--           <pomIncludes> -->
+<!--             <pomInclude>*/pom.xml</pomInclude> -->
+<!--           </pomIncludes> -->
+<!--           <skipInvocation>${skipTests}</skipInvocation> -->
+<!--           <addTestClassPath>true</addTestClassPath> -->
+<!--           <preBuildHookScript>setup</preBuildHookScript> -->
+<!--           <postBuildHookScript>verify</postBuildHookScript> -->
+<!--           <scriptVariables> -->
+<!--             <sourceDir>${project.basedir}</sourceDir> -->
+<!--             <projectVersion>${project.version}</projectVersion> -->
+<!--           </scriptVariables> -->
+<!--           <projectsDirectory>src/it/projects</projectsDirectory> -->
+<!--           <cloneProjectsTo>${project.build.directory}/it/projects</cloneProjectsTo> -->
+<!--           <cloneAllFiles>true</cloneAllFiles> -->
+<!--           <settingsFile>src/it/settings.xml</settingsFile> -->
+<!--           <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath> -->
+<!--         </configuration> -->
+<!--         <executions> -->
+<!--           <execution> -->
+<!--             <id>integration-test</id> -->
+<!--             <goals> -->
+<!--               <goal>install</goal> -->
+<!--               <goal>run</goal> -->
+<!--             </goals> -->
+<!--           </execution> -->
+<!--         </executions> -->
+<!--       </plugin> -->
+<!--       <plugin> -->
+<!--         <groupId>org.codehaus.plexus</groupId> -->
+<!--         <artifactId>plexus-component-metadata</artifactId> -->
+<!--         <executions> -->
+<!--           <execution> -->
+<!--             <goals> -->
+<!--               <goal>generate-metadata</goal> -->
+<!--             </goals> -->
+<!--           </execution> -->
+<!--         </executions> -->
+<!--       </plugin> -->
  
     </plugins>
   </build>
