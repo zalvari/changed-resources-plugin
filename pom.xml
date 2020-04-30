@@ -280,7 +280,8 @@
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
 							<encoding>${project.build.sourceEncoding}</encoding>
-							<javadocVersion>${java.version}</javadocVersion>
+							<javadocVersion>8</javadocVersion>
+							<source>8</source>
 						</configuration>
 						<executions>
 							<execution>
