@@ -9,3 +9,5 @@
 .project
 .settings/
 .classpath
+pom.xml.releaseBackup
+release.properties
