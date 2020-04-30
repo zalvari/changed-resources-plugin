@@ -8,5 +8,9 @@
       <username>${env.OSSRHUSER}</username>
       <password>${env.OSSRHPASS}</password>
     </server>
+     <server>
+      <id>gpg.passphrase</id>
+      <passphrase>${env.GPGPASS}</passphrase>
+    </server>
    </servers>
 </settings>
