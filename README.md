@@ -1,17 +1,17 @@
 # Partial Build Plugin
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.lesfurets/partial-build-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.lesfurets/partial-build-plugin)
-[![Build Status](https://travis-ci.org/lesfurets/partial-build-plugin.svg?branch=develop)](https://travis-ci.org/lesfurets/partial-build-plugin)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.lesfurets/partial-build-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/eu.zalvari/changed-resources-plugin)
+[![Build Status](https://travis-ci.org/lesfurets/partial-build-plugin.svg?branch=develop)](https://travis-ci.com/github/zalvari/changed-resources-plugin)
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/lesfurets/partial-build-plugin?branch=master&svg=true)](https://ci.appveyor.com/project/ozangunalp/partial-build-plugin)
 
-A maven plugin for partially building multi-module projects based on changes in the Git repository.
+A maven plugin to copy changed resources based on changes in the Git repository.
 
 Partial Build Plugin allows to build (or test) only the sub-set of modules impacted by the changes between the base (current) branch and a reference branch. 
 Additionally it writes the list of impacted projects into files and/or maven properties to be exploited later in the build workflow.
 
 Partial Build Plugin can be integrated into different kinds of development workflows, whether feature branching, promiscuous branching or trunk-based development. 
 
-_**Disclosure** : This plugin is forked and based on the project [gitflow-incremental-builder](https://github.com/vackosar/gitflow-incremental-builder) by Vaclav Kosar._
+_**Disclosure** : The code is based on the project [partial-build-plugin](https://github.com/lesfurets/partial-build-plugin)._
 
 ## Usage
 
