@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.zalvari</groupId>
 	<artifactId>changed-resources-plugin</artifactId>
@@ -185,17 +187,17 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-<!-- 					<additionalClasspathElements> -->
-<!-- 						<additionalClasspathElement> -->
-<!-- 							src/it -->
-<!-- 						</additionalClasspathElement> -->
-<!-- 					</additionalClasspathElements> -->
-<!-- 					<workingDirectory>${project.build.directory}</workingDirectory> -->
-<!-- 					<systemPropertyVariables> -->
-<!-- 						<projectVersion>${project.version}</projectVersion> -->
-<!-- 						<buildDir>${project.build.directory}</buildDir> -->
-<!-- 					</systemPropertyVariables> -->
-     				<skipTests>true</skipTests>
+					<!-- <additionalClasspathElements> -->
+					<!-- <additionalClasspathElement> -->
+					<!-- src/it -->
+					<!-- </additionalClasspathElement> -->
+					<!-- </additionalClasspathElements> -->
+					<!-- <workingDirectory>${project.build.directory}</workingDirectory> -->
+					<!-- <systemPropertyVariables> -->
+					<!-- <projectVersion>${project.version}</projectVersion> -->
+					<!-- <buildDir>${project.build.directory}</buildDir> -->
+					<!-- </systemPropertyVariables> -->
+					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
 			<!-- <plugin> -->
@@ -261,9 +263,6 @@
 								</goals>
 							</execution>
 						</executions>
-						<configuration>
-							<useAgent>true</useAgent>
-						</configuration>
 					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -296,7 +295,6 @@
 						<executions>
 							<execution>
 								<id>attach-sources</id>
-								<phase>verify</phase>
 								<goals>
 									<goal>jar-no-fork</goal>
 								</goals>
@@ -307,6 +305,11 @@
 						<groupId>org.sonatype.plugins</groupId>
 						<artifactId>nexus-staging-maven-plugin</artifactId>
 						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
 						<executions>
 							<execution>
 								<id>deploy-to-sonatype</id>
