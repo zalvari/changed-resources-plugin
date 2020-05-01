@@ -1,6 +1,6 @@
 # Changed Resources Plugin
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.zalvari/change-resources-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.zalvari/change-resources-plugin)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.zalvari/changed-resources-plugin/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.zalvari/changed-resources-plugin)
 [![Build Status](https://travis-ci.org/github/zalvari/changed-resources-plugin.svg?branch=master)](https://travis-ci.com/github/zalvari/changed-resources-plugin)
 
 _**Disclosure** : The code is based on the project [partial-build-plugin](https://github.com/lesfurets/partial-build-plugin)._
