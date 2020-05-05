@@ -38,7 +38,7 @@ public class CopyChangedResources extends AbstractMojo {
 	@Parameter(required = false, property = Property.PREFIX+ "referenceBranch", defaultValue = "refs/remotes/origin/develop")
 	public String referenceBranch;
 
-	@Parameter(required = false, property = Property.PREFIX + "baseBranch", defaultValue = "HEAD")
+	@Parameter(required = false, property = Property.PREFIX + "baseBranch", defaultValue = "refs/remotes/origin/master")
 	public String baseBranch;
 
 	@Parameter(required = false, property = Property.PREFIX + "uncommited", defaultValue = "true")
@@ -65,7 +65,7 @@ public class CopyChangedResources extends AbstractMojo {
 	@Parameter(required = false, property = Property.PREFIX + "excludeFiles", defaultValue = "")
 	public String excludeFiles;
 
-	@Parameter(required = false, property = Property.PREFIX + "outputFile", defaultValue = "${project.basedir}/changedResources/")
+	@Parameter(required = false, property = Property.PREFIX + "outputDir", defaultValue = "${project.basedir}/changedResources/")
 	public String outputDir;
 
 	@Parameter(required = false, property = Property.PREFIX + "writeChanged", defaultValue = "false")

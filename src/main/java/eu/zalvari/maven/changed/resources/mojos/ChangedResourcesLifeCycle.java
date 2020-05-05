@@ -37,10 +37,10 @@ public class ChangedResourcesLifeCycle extends AbstractMavenLifecycleParticipant
 		try {
 
 			if (configuration.enabled) {
-				logger.info("Partial build enabled...");
+				logger.info("Changed resources plugin enabled...");
 				changedResources.act();
 		      } else {
-	                logger.info("Partial build disabled...");
+	                logger.info("Changed resources plugin disabled...");
 	            }
 		} catch (GitAPIException | IOException e) {
 			 throw new MavenExecutionException("Exception during Change resources Build execution: " + e.getMessage(), e);
