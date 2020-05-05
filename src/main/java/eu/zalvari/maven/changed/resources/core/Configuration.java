@@ -19,7 +19,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class Configuration {
 
-    private static final String PLUGIN_KEY = "eu.zalvari:changed-resources-plugin";
+	private static final String PLUGIN_KEY = "io.github.zalvari:changed-resources-plugin";
 
     public final boolean enabled;
     public final Path key;
