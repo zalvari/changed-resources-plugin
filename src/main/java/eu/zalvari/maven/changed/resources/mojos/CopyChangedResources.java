@@ -67,6 +67,9 @@ public class CopyChangedResources extends AbstractMojo {
 
 	@Parameter(required = false, property = Property.PREFIX + "outputDir", defaultValue = "${project.basedir}/changedResources/")
 	public String outputDir;
+	
+	@Parameter(required = false, property = Property.PREFIX + "cleanOutputDir", defaultValue = "true")
+	public boolean cleanOutputDir;
 
 	@Parameter(required = false, property = Property.PREFIX + "writeChanged", defaultValue = "false")
 	public String writeChanged;

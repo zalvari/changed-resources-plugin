@@ -19,12 +19,9 @@ import eu.zalvari.maven.changed.resources.core.GuiceModule;
 
 @Component( role = AbstractMavenLifecycleParticipant.class)
 public class ChangedResourcesLifeCycle extends AbstractMavenLifecycleParticipant {
-
 	
     @Requirement
     private Logger logger;
-    
-    
    
 	@Override
     public void afterProjectsRead(MavenSession session) throws MavenExecutionException {

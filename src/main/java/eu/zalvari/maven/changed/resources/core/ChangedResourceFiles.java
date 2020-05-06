@@ -1,10 +1,12 @@
 package eu.zalvari.maven.changed.resources.core;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -40,16 +42,30 @@ public class ChangedResourceFiles {
 
 		logger.debug("ProjectDir " + projectDir.toString());
 
-		final Set<Path> changed = changedFiles.get();
 		final Path resourcesDir = findResourcesDir(projectDir).get();
 		
-		return changed.stream()
+		final Set<Path> changed = changedFiles.get().stream()
 					.filter(p -> p.startsWith(projectDir))
 					.filter(p -> p.startsWith(resourcesDir))	
-					.filter(f -> Stream.of(configuration.excludeDirs.split(",")).anyMatch(filter -> !f.toString().matches(".*"+filter+".*")))
-					.filter(f -> Stream.of(configuration.excludeFiles.split(",")).anyMatch(filter -> !f.getFileName().toString().matches(filter) ))
-					.filter(f -> Files.exists(f))
 					.collect(Collectors.toSet());
+		
+		return filterFiles(filterDirs(changed)).stream().filter(Files::exists).collect(Collectors.toSet());
+	}
+	
+	private Set<Path> filterDirs(Set<Path> dirs){
+		if (configuration.excludeDirs != null && configuration.excludeDirs.length() > 0) {
+			logger.debug("Filter dirs");
+			return dirs.stream().filter(f -> Stream.of(configuration.excludeDirs.split(",")).anyMatch(filter -> !f.toString().matches(".*"+filter+".*"))).collect(Collectors.toSet());
+		}
+		return dirs;
+	}
+	
+	private Set<Path> filterFiles(Set<Path> files){
+		if (configuration.excludeFiles != null && configuration.excludeFiles.length() > 0) {
+			logger.debug("Filter files");
+			return files.stream().filter(f -> Stream.of(configuration.excludeFiles.split(",")).anyMatch(filter -> !f.getFileName().toString().matches(filter))).collect(Collectors.toSet());
+		}
+		return files;
 	}
 	
 	public void act() throws GitAPIException, IOException {
@@ -58,21 +74,33 @@ public class ChangedResourceFiles {
 		final Path resourcesDir = findResourcesDir(getProjectDir()).get();
 		logger.debug("TargetDir " + targetDir.toString());
 		final Set<Path> relChanged = findResources();
+
+		printDelimiter();			
+		
+		Path outputFilePath = configuration.outputFile.orElse(targetDir.resolve(CHANGED_RESOURCES));
+		Path outputDirPath = configuration.outputDir.orElse(targetDir.resolve(CHANGED_RESOURCES_DIR));
+		if (configuration.cleanOutputDir) {
+			logger.info("Clean output "+outputDirPath);
+			Files.walk(outputDirPath)
+		      .sorted(Comparator.reverseOrder())
+		      .map(Path::toFile)
+		      .forEach(File::delete);
+			Files.deleteIfExists(outputDirPath);
+			Files.deleteIfExists(outputFilePath);
+		}
 		
 		logPaths(relChanged, "Resources to copy:");
 		
 		if (!relChanged.isEmpty()) {
-			printDelimiter();			
-
-			Path outputFilePath = configuration.outputFile.orElse(targetDir.resolve(CHANGED_RESOURCES));
 			writeChangedFiles(relChanged, outputFilePath, getProjectDir().toString());
-			Path outputDirPath = configuration.outputDir.orElse(targetDir.resolve(CHANGED_RESOURCES_DIR));
 			copyResourceFiles(relChanged, outputDirPath, resourcesDir);
 		}else {
 			logger.warn("Skipping... no changed resources found");
 		}
 
+		printDelimiter();			
 	}
+		
 	
 	private Path getProjectDir() {
 		return Paths.get(mavenSession.getCurrentProject().getBasedir().getAbsolutePath());

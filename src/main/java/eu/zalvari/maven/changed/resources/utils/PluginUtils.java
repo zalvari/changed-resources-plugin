@@ -98,7 +98,5 @@ public class PluginUtils {
  	        throw new RuntimeException(e.getMessage(), e);
  	    }
     }
-    
-
 
 }

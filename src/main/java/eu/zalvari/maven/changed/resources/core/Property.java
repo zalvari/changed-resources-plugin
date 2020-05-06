@@ -17,7 +17,8 @@ public enum Property {
     useNativeGit("false"),
     resourcesDir("src/main/resources"),
     excludeDirs(""),
-    excludeFiles("");
+    excludeFiles(""), 
+    cleanOutputDir("true");
 
     public static final String PREFIX = "changedResources.";
 

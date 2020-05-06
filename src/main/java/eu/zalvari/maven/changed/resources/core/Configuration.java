@@ -34,6 +34,7 @@ public class Configuration {
     public final Optional<Path> outputDir;
     public final boolean writeChanged;
     public final boolean useNativeGit;
+    public final boolean cleanOutputDir;
     public final String rootDirectory;
     public final Optional<Path> resourcesDir;
     public final String excludeDirs;
@@ -62,6 +63,7 @@ public class Configuration {
             fetchBaseBranch = Boolean.valueOf(Property.fetchBaseBranch.getValue());
             outputFile = parseFilePath(session, Property.outputFile.getValue());
             outputDir = parseFilePath(session, Property.outputDir.getValue());
+            cleanOutputDir = Boolean.valueOf(Property.cleanOutputDir.getValue());
             writeChanged = Boolean.valueOf(Property.writeChanged.getValue());
             useNativeGit = Boolean.valueOf(Property.useNativeGit.getValue());
             rootDirectory = session.getExecutionRootDirectory();
