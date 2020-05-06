@@ -16,19 +16,19 @@ Changed Resources Plugin leverages [Maven build extensions](https://maven.apache
 So be sure to add `<extensions>true</extensions>` in the plugin definition to enable the partial build.
 ```xml
     <plugins>
-      <plugin>
-        <groupId>eu.zalvari</groupId>
+ 	<plugin>
+        <groupId>io.github.zalvari</groupId>
         <artifactId>changed-resources-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>		
+        <version>1.0.2</version>		
         <extensions>true</extensions>		 
 		  <configuration>
 			  <enabled>true</enabled>
 			  <uncommited>false</uncommited>
 			  <referenceBranch>refs/heads/master</referenceBranch>
 			  <baseBranch>refs/heads/feature1</baseBranch>
-			  <outputDir>diff/changedResources</outputDir>
-			  <outputFile>diff/resources.changed</outputFile>
-			  <resourcesDir>src/</resourcesDir>
+			  <outputDir>${project.basedir}/diff/changedResources</outputDir>
+			  <outputFile>${project.basedir}/diff/resources.changed</outputFile>
+			  <resourcesDir>src</resourcesDir>
 			  <excludeDirs>proc</excludeDirs>
 			  <excludeFiles>file2.sql</excludeFiles>
 			</configuration>
