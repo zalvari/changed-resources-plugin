@@ -68,39 +68,52 @@ public class ChangedResourceFiles {
 		return files;
 	}
 	
-	public void act() throws GitAPIException, IOException {
+	public void list() throws GitAPIException, IOException {
+		final Set<Path> relChanged = findResources();
+		printToFileChangedFiles(relChanged);
+	}
+	
+	public void copy() throws GitAPIException, IOException {
 
 		final Path targetDir = getTargetDir();
 		final Path resourcesDir = findResourcesDir(getProjectDir()).get();
 		logger.debug("TargetDir " + targetDir.toString());
 		final Set<Path> relChanged = findResources();
 
-		printDelimiter();			
+		printDelimiter();	
+		if (configuration.outputFile.isPresent()) {
+			printToFileChangedFiles(relChanged);
+		}
 		
-		Path outputFilePath = configuration.outputFile.orElse(targetDir.resolve(CHANGED_RESOURCES));
 		Path outputDirPath = configuration.outputDir.orElse(targetDir.resolve(CHANGED_RESOURCES_DIR));
 		if (configuration.cleanOutputDir) {
 			logger.info("Clean output "+outputDirPath);
-			Files.walk(outputDirPath)
-		      .sorted(Comparator.reverseOrder())
-		      .map(Path::toFile)
-		      .forEach(File::delete);
+			if (Files.exists(outputDirPath)) {
+				Files.walk(outputDirPath)
+			      .sorted(Comparator.reverseOrder())
+			      .map(Path::toFile)
+			      .forEach(File::delete);
+			}
 			Files.deleteIfExists(outputDirPath);
-			Files.deleteIfExists(outputFilePath);
 		}
 		
 		logPaths(relChanged, "Resources to copy:");
 		
 		if (!relChanged.isEmpty()) {
-			writeChangedFiles(relChanged, outputFilePath, getProjectDir().toString());
 			copyResourceFiles(relChanged, outputDirPath, resourcesDir);
 		}else {
 			logger.warn("Skipping... no changed resources found");
 		}
 
-		printDelimiter();			
+		printDelimiter();
 	}
-		
+	
+	private void printToFileChangedFiles(Set<Path>  relChanged) throws IOException {
+		Path outputFilePath = configuration.outputFile.orElse(getTargetDir().resolve(CHANGED_RESOURCES));
+		logger.info("Write file "+outputFilePath.toString());
+		Files.deleteIfExists(outputFilePath);
+		writeChangedFiles(relChanged, outputFilePath, getProjectDir().toString());
+	}
 	
 	private Path getProjectDir() {
 		return Paths.get(mavenSession.getCurrentProject().getBasedir().getAbsolutePath());

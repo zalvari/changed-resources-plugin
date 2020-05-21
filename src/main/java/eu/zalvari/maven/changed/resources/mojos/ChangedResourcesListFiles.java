@@ -21,8 +21,8 @@ import eu.zalvari.maven.changed.resources.core.GuiceModule;
 import eu.zalvari.maven.changed.resources.core.Property;
 import eu.zalvari.maven.changed.resources.utils.MavenToPlexusLogAdapter;
 
-@Mojo(name = "copy", defaultPhase = LifecyclePhase.GENERATE_RESOURCES , threadSafe = true, aggregator = true )
-public class CopyChangedResources extends AbstractMojo {
+@Mojo(name = "list", defaultPhase = LifecyclePhase.GENERATE_RESOURCES , threadSafe = true, aggregator = true )
+public class ChangedResourcesListFiles extends AbstractMojo {
 	@Parameter(defaultValue = "${project}")
 	private MavenProject project;
 
@@ -55,7 +55,7 @@ public class CopyChangedResources extends AbstractMojo {
 
 	@Parameter(required = false, property = Property.PREFIX + "outputFile", defaultValue = "${project.basedir}/changed.resources")
 	public String outputFile;
-	
+
 	@Parameter(required = false, property = Property.PREFIX + "resourcesDir", defaultValue = "")
 	public String resourceDir;
 	
@@ -64,13 +64,7 @@ public class CopyChangedResources extends AbstractMojo {
 	
 	@Parameter(required = false, property = Property.PREFIX + "excludeFiles", defaultValue = "")
 	public String excludeFiles;
-
-	@Parameter(required = false, property = Property.PREFIX + "outputDir", defaultValue = "${project.basedir}/changedResources/")
-	public String outputDir;
 	
-	@Parameter(required = false, property = Property.PREFIX + "cleanOutputDir", defaultValue = "true")
-	public boolean cleanOutputDir;
-
 	@Parameter(required = false, property = Property.PREFIX + "writeChanged", defaultValue = "false")
 	public String writeChanged;
 
@@ -86,7 +80,7 @@ public class CopyChangedResources extends AbstractMojo {
 		getLog().info(configuration.toString());
 
 		try {
-			changedResources.copy();
+			changedResources.list();
 		} catch (GitAPIException | IOException e) {
 			throw new MojoExecutionException("Exception during Changed Resources Build execution: ", e);
 		}
