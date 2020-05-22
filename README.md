@@ -12,9 +12,9 @@ The plugin executes on the Generate Resources phase
 
 ## Goals
 ### copy
-Copy the changed files to the configured <outputDir>
+Copy the changed files to the configured ```xml <outputDir> ```
 ### list
-Write the list of changed files in the configured <outputFile>
+Write the list of changed files in the configured ```xml <outputFile> ```
 
 ## Usage
 
@@ -48,13 +48,18 @@ Write the list of changed files in the configured <outputFile>
 ### maven command line
 
 It can be used directly on command line
+```
 mvn io.github.zalvari:changed-resources-plugin:copy
+```
 or
+```
 mvn io.github.zalvari:changed-resources-plugin:list
+```
 
 Also you can add the configurations as parameter 
-
+```
 mvn io.github.zalvari:changed-resources-plugin:copy -DreferenceBranch=refs/remotes/tag/v1.0 -DexcludeFiles=file1.sql
+```
 
 ## Configuration
 
