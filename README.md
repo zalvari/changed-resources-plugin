@@ -7,34 +7,54 @@ _**Disclosure** : The code is based on the project [partial-build-plugin](https:
 
 A maven plugin to copy changed resources based on changes in the Git repository.
 
-Changed Resources Plugin copies the resources that have been modified in a branch, to the configured directory, which can be treated in the normal lifecycle of maven.
-The plugin executes before the maven lifecycle after the process read
+Changed Resources Plugin copies the resources that have been modified in a branch, comparing with a reference branch or tag which can be treated using other resources plugins.
+The plugin executes on the Generate Resources phase
+
+## Goals
+### copy
+Copy the changed files to the configured <outputDir>
+### list
+Write the list of changed files in the configured <outputFile>
 
 ## Usage
 
-Changed Resources Plugin leverages [Maven build extensions](https://maven.apache.org/examples/maven-3-lifecycle-extensions.html) to modify the projects to be build. 
-So be sure to add `<extensions>true</extensions>` in the plugin definition to enable the partial build.
+### pom.xml
 ```xml
     <plugins>
  	<plugin>
         <groupId>io.github.zalvari</groupId>
         <artifactId>changed-resources-plugin</artifactId>
         <version>1.0.2</version>		
-        <extensions>true</extensions>		 
-		  <configuration>
-			  <enabled>true</enabled>
-			  <uncommited>false</uncommited>
-			  <referenceBranch>refs/heads/master</referenceBranch>
-			  <baseBranch>refs/heads/feature1</baseBranch>
-			  <outputDir>${project.basedir}/diff/changedResources</outputDir>
-			  <outputFile>${project.basedir}/diff/resources.changed</outputFile>
-			  <resourcesDir>src</resourcesDir>
-			  <excludeDirs>proc</excludeDirs>
-			  <excludeFiles>file2.sql</excludeFiles>
-			</configuration>
+        <extensions>true</extensions>	
+	<executions>
+		<goals>
+			<goal>copy</goal>
+		</goals>
+	</executions>		
+	  <configuration>
+		  <enabled>true</enabled>
+		  <uncommited>false</uncommited>
+		  <referenceBranch>refs/heads/master</referenceBranch>
+		  <baseBranch>refs/heads/feature1</baseBranch>
+		  <outputDir>${project.build.directory}/diff/changedResources</outputDir>
+		  <outputFile>${project.build.directory}/diff/resources.changed</outputFile>
+		  <resourcesDir>src</resourcesDir>
+		  <excludeDirs>proc</excludeDirs>
+		  <excludeFiles>file2.sql</excludeFiles>
+		</configuration>
       </plugin>
     </plugins>
 ```
+### maven command line
+
+It can be used directly on command line
+mvn io.github.zalvari:changed-resources-plugin:copy
+or
+mvn io.github.zalvari:changed-resources-plugin:list
+
+Also you can add the configurations as parameter 
+
+mvn io.github.zalvari:changed-resources-plugin:copy -DreferenceBranch=refs/remotes/tag/v1.0 -DexcludeFiles=file1.sql
 
 ## Configuration
 
@@ -56,16 +76,6 @@ So be sure to add `<extensions>true</extensions>` in the plugin definition to en
 | excludeDirs                    | No       | empty                                 | Comma separated list of dir names to ignore changed resources                                                                                                                                                                                                     |
 | excludeFiles                   | No       | empty                                  | Comma separated list of file names or regex to ignore changed resources                                                                                                                                                                                                     |
 | useNativeGit                   | No       | FALSE                                 | Use Native Git commands instead of JGit for detecting changed files. It should also cut down the build bootstrap by a couple of seconds                                                                                                                  |
-
-## Getting Started
-
-TODO
-
-## Known Issues
-
-* `--resume-from` builds are not supported yet.
-* Changed projects console dump is not ordered.
-* JGit currently does not support git worktree's (see https://git.eclipse.org/r/#/q/topic:worktree), `useNativeGit` option can be used to work in worktrees. 
 
 
 ## Requirements
