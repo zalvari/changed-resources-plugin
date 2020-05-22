@@ -12,9 +12,9 @@ The plugin executes on the Generate Resources phase
 
 ## Goals
 ### copy
-Copy the changed files to the configured ```xml <outputDir> ```
+Copy the changed files to the configured ``` <outputDir> ```
 ### list
-Write the list of changed files in the configured ```xml <outputFile> ```
+Write the list of changed files in the configured ``` <outputFile> ```
 
 ## Usage
 
