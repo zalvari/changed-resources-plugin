@@ -51,7 +51,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- Dependency versions -->
-		<jgit.version>4.4.1.201607150455-r</jgit.version>
+		<jgit.version>6.6.1.202309021850-r</jgit.version>
 		<guice.version>4.0</guice.version>
 		<maven-core.version>3.3.9</maven-core.version>
 		<maven-common-artifact-filters.version>1.4</maven-common-artifact-filters.version>
